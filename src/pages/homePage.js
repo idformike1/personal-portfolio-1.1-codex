@@ -6,12 +6,16 @@ const featured = projects.slice(0, 4)
     (project, index) => `
       <li class="featured-work__item" data-project-card data-project-index="${index}" data-preview="${project.image}" data-accent="${project.accent}">
         <a href="/work" data-route-link data-cursor="view project">
-          <div class="featured-work__thumb" style="--project-accent:${project.accent}">
-            <img src="${project.image}" alt="${project.title}" loading="lazy" decoding="async" />
-          </div>
-          <div class="featured-work__meta">
-            <h3>${project.title}</h3>
-            <p>${project.services}</p>
+          <div class="featured-work__row">
+            <div class="featured-work__title">
+              <h3>${project.title}</h3>
+            </div>
+            <div class="featured-work__service">
+              <p>${project.services}</p>
+            </div>
+            <div class="featured-work__year">
+              <p>${project.year}</p>
+            </div>
           </div>
         </a>
       </li>
@@ -68,7 +72,7 @@ export const buildHomePage = () => `
           <p class="eyebrow">Recent work</p>
           <a href="/work" data-route-link>All projects</a>
         </div>
-        <ul class="featured-work__list featured-work__list--cards">
+        <ul class="featured-work__list">
           ${featured}
         </ul>
       </div>
