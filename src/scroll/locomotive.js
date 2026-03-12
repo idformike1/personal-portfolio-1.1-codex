@@ -15,7 +15,7 @@ export class LocomotiveEngine {
 
     this.instance = new LocomotiveScroll({
       el: this.scrollerElement,
-      smooth: !window.matchMedia('(max-width: 767px)').matches,
+      smooth: false,
       lerp: 0.09,
       tablet: { smooth: false },
       smartphone: { smooth: false }
