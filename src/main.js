@@ -2,13 +2,13 @@ import './styles/variables.css';
 import './styles/base.css';
 import './styles/components.css';
 import './styles/layout.css';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 
-import barba from '@barba/core';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { buildHomePage } from './pages/homePage.js';
 import { buildWorkPage } from './pages/workPage.js';
-import { initPreloader } from './animations/preload.js';
+import { initLoader } from './animations/loader.js';
 import { initPageTransitions } from './animations/pageTransitions.js';
 import { mountSite } from './site.js';
 
@@ -68,10 +68,9 @@ const mountCurrent = (container) => {
 
 mountCurrent(document.querySelector('[data-barba="container"]'));
 
-initPreloader({
+initLoader({
   onComplete: () => {
     initPageTransitions({
-      barba,
       renderRoute,
       onMount: mountCurrent,
       getMounted: () => state.mounted

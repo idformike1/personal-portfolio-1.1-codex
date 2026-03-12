@@ -1,8 +1,7 @@
 import LocomotiveScroll from 'locomotive-scroll';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export class ScrollEngine {
+export class LocomotiveEngine {
   constructor(container) {
     this.container = container;
     this.scrollerElement = container.querySelector('[data-scroll-container]');
@@ -57,13 +56,11 @@ export class ScrollEngine {
   }
 
   stop() {
-    if (!this.instance) return;
-    this.instance.stop();
+    this.instance?.stop();
   }
 
   start() {
-    if (!this.instance) return;
-    this.instance.start();
+    this.instance?.start();
   }
 
   update() {

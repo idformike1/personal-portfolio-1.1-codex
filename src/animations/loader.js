@@ -1,13 +1,13 @@
 import gsap from 'gsap';
 
-export const initPreloader = ({ onComplete }) => {
+export const initLoader = ({ onComplete }) => {
   const loader = document.querySelector('[data-loader]');
   const words = loader?.querySelectorAll('[data-loader-words] span');
-  let resolved = false;
+  let completed = false;
 
   const finish = () => {
-    if (resolved) return;
-    resolved = true;
+    if (completed) return;
+    completed = true;
     loader?.remove();
     document.querySelector('.site-main')?.classList.remove('is-loading');
     onComplete?.();
@@ -23,9 +23,7 @@ export const initPreloader = ({ onComplete }) => {
 
   const timeline = gsap.timeline({
     defaults: { ease: 'power4.out' },
-    onComplete: () => {
-      finish();
-    }
+    onComplete: finish
   });
 
   words.forEach((word) => {

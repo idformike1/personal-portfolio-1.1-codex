@@ -1,38 +1,25 @@
 import gsap from 'gsap';
 
-export const initHoverAnimations = (container, cursor, scroll) => {
+export const initHoverEffects = (container, cursor, scroll) => {
   const destroyers = [];
-  const navToggles = container.querySelectorAll('[data-nav-toggle]');
-  const navOverlay = container.querySelector('[data-nav-overlay]');
-
-  const toggleNav = () => {
-    container.classList.toggle('nav-active');
-    if (container.classList.contains('nav-active')) scroll.stop();
-    else scroll.start();
-  };
-
-  navToggles.forEach((node) => {
-    node.addEventListener('click', toggleNav);
-    destroyers.push(() => node.removeEventListener('click', toggleNav));
-  });
-
-  navOverlay?.addEventListener('click', toggleNav);
-  destroyers.push(() => navOverlay?.removeEventListener('click', toggleNav));
 
   const projectItems = [...container.querySelectorAll('[data-project-card], [data-project-row]')];
   projectItems.forEach((item) => {
     const image = item.querySelector('img');
     const title = item.querySelector('h3, h4');
+
     const enter = () => {
       cursor.setState(item.dataset.projectRow ? 'view project' : 'explore', item.dataset.preview, item.dataset.accent);
       if (image) gsap.to(image, { scale: 1.07, duration: 0.7, ease: 'power3.out' });
       if (title) gsap.to(title, { x: -12, duration: 0.45, ease: 'power3.out' });
     };
+
     const leave = () => {
       cursor.setState('default');
       if (image) gsap.to(image, { scale: 1, x: 0, y: 0, duration: 0.7, ease: 'power3.out' });
       if (title) gsap.to(title, { x: 0, duration: 0.45, ease: 'power3.out' });
     };
+
     const move = (event) => {
       if (!image) return;
       const bounds = item.getBoundingClientRect();
@@ -45,6 +32,7 @@ export const initHoverAnimations = (container, cursor, scroll) => {
     item.addEventListener('mouseenter', enter);
     item.addEventListener('mouseleave', leave);
     item.addEventListener('mousemove', move);
+
     destroyers.push(() => {
       item.removeEventListener('mouseenter', enter);
       item.removeEventListener('mouseleave', leave);
@@ -68,6 +56,7 @@ export const initHoverAnimations = (container, cursor, scroll) => {
       });
       window.requestAnimationFrame(() => scroll.update());
     };
+
     button.addEventListener('click', onClick);
     destroyers.push(() => button.removeEventListener('click', onClick));
   });
@@ -79,28 +68,14 @@ export const initHoverAnimations = (container, cursor, scroll) => {
       scroll.scrollToTop();
       window.requestAnimationFrame(() => scroll.update());
     };
+
     button.addEventListener('click', onClick);
     destroyers.push(() => button.removeEventListener('click', onClick));
   });
 
-  const formatter = new Intl.DateTimeFormat([], {
-    timeZone: 'Europe/Amsterdam',
-    timeZoneName: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
-  const timeNode = container.querySelector('[data-local-time]');
-  const updateTime = () => {
-    if (timeNode) timeNode.textContent = formatter.format(new Date());
-  };
-  updateTime();
-  const interval = window.setInterval(updateTime, 1000);
-
   return {
     destroy() {
-      destroyers.forEach((fn) => fn());
-      window.clearInterval(interval);
+      destroyers.forEach((destroy) => destroy());
     }
   };
 };
