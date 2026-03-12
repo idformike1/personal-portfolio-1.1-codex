@@ -307,7 +307,7 @@
   border-radius: 50%;
   background: var(--color-dark-alt);
   transform: translate3d(0, -76%, 0);
-  transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+  transition: none;
 }
 
 .pill:hover::before,
@@ -315,7 +315,7 @@
 .archive-pill:hover::before,
 .view-toggle:hover::before,
 .view-toggle.is-active::before {
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, -76%, 0);
 }
 
 .pill,
@@ -329,7 +329,7 @@
 .archive-pill:hover,
 .view-toggle:hover,
 .view-toggle.is-active {
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 .pill > *,

@@ -4,7 +4,7 @@ import { renderFooter, renderShell } from './shared.js';
 const featured = projects.slice(0, 4)
   .map(
     (project, index) => `
-      <li class="featured-work__item" data-project-card data-project-index="${index}" data-preview="${project.image}" data-accent="${project.accent}">
+      <li class="featured-work__item" data-project-card data-project-index="${index}" data-preview="${project.image}" data-accent="${project.accent}" data-services="${project.services}" data-year="${project.year}">
         <a href="/work" data-route-link data-cursor="view project">
           <div class="featured-work__row">
             <div class="featured-work__title">
@@ -71,6 +71,15 @@ export const buildHomePage = () => `
         <div class="featured-work__head">
           <p class="eyebrow">Recent work</p>
           <a href="/work" data-route-link>All projects</a>
+        </div>
+        <div class="featured-work__preview" data-featured-preview aria-hidden="true">
+          <div class="featured-work__preview-media">
+            <img src="${projects[0].image}" alt="" data-featured-preview-image />
+          </div>
+          <div class="featured-work__preview-copy">
+            <p class="eyebrow" data-featured-preview-meta>${projects[0].services} • ${projects[0].year}</p>
+            <p data-featured-preview-title>${projects[0].title}</p>
+          </div>
         </div>
         <ul class="featured-work__list">
           ${featured}

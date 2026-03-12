@@ -1,61 +1,74 @@
 import gsap from 'gsap';
 
-export const initHoverEffects = (container, cursor, scroll) => {
-  const destroyers = [];
-  const magneticButtons = [...container.querySelectorAll('.btn-round, .pill, .archive-pill, .view-toggle, .nav-bar__menu, .floating-menu, [data-magnetic]')];
+export const initHoverEffects = (container, cursor) => {
+  if (container.dataset.barbaNamespace !== 'home') {
+    return { destroy() {} };
+  }
 
-  magneticButtons.forEach((button) => {
-    const strength = button.classList.contains('btn-round') ? 24 : 14;
-    const move = (event) => {
-      const bounds = button.getBoundingClientRect();
-      const x = (event.clientX - bounds.left - bounds.width / 2) / bounds.width;
-      const y = (event.clientY - bounds.top - bounds.height / 2) / bounds.height;
-      gsap.to(button, {
-        x: x * strength,
-        y: y * strength,
-        duration: 0.35,
-        ease: 'power3.out'
-      });
-    };
-    const leave = () => {
-      gsap.to(button, {
-        x: 0,
-        y: 0,
-        duration: 0.65,
-        ease: 'elastic.out(1, 0.45)'
-      });
-    };
-    button.addEventListener('pointermove', move);
-    button.addEventListener('pointerleave', leave);
-    destroyers.push(() => {
-      button.removeEventListener('pointermove', move);
-      button.removeEventListener('pointerleave', leave);
-    });
-  });
+  const destroyers = [];
+  const previewWrap = container.querySelector('[data-featured-preview]');
+  const previewImage = container.querySelector('[data-featured-preview-image]');
+  const previewTitle = container.querySelector('[data-featured-preview-title]');
+  const previewMeta = container.querySelector('[data-featured-preview-meta]');
+  let activeItem = null;
 
   const projectItems = [...container.querySelectorAll('[data-project-card], [data-project-row]')];
   projectItems.forEach((item) => {
-    const image = item.querySelector('img');
     const title = item.querySelector('h3, h4');
+    const image = previewImage;
 
     const enter = () => {
+      activeItem = item;
       cursor.setState(item.dataset.projectRow ? 'view project' : 'explore', item.dataset.preview, item.dataset.accent);
-      if (image) gsap.to(image, { scale: 1.07, duration: 0.7, ease: 'power3.out' });
+      if (previewImage && item.dataset.preview) previewImage.src = item.dataset.preview;
+      if (previewTitle && title) previewTitle.textContent = title.textContent.trim();
+      if (previewMeta) previewMeta.textContent = `${item.dataset.services || ''}${item.dataset.year ? ` • ${item.dataset.year}` : ''}`;
+      if (previewWrap) {
+        gsap.to(previewWrap, {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.45,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      }
+      if (image) gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 0.7, ease: 'power3.out', overwrite: 'auto' });
       if (title) gsap.to(title, { x: -12, duration: 0.45, ease: 'power3.out' });
     };
 
     const leave = () => {
+      activeItem = null;
       cursor.setState('default');
-      if (image) gsap.to(image, { scale: 1, x: 0, y: 0, duration: 0.7, ease: 'power3.out' });
+      if (previewImage) {
+        gsap.to(previewImage, {
+          x: 0,
+          y: 0,
+          duration: 0.4,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+      if (previewWrap) {
+        gsap.to(previewWrap, {
+          x: 0,
+          y: 0,
+          autoAlpha: 0,
+          scale: 0.92,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
       if (title) gsap.to(title, { x: 0, duration: 0.45, ease: 'power3.out' });
     };
 
     const move = (event) => {
-      if (!image) return;
+      if (activeItem !== item) return;
       const bounds = item.getBoundingClientRect();
-      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 16;
-      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 16;
-      gsap.to(image, { x, y, duration: 0.5, ease: 'power3.out' });
+      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
+      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 18;
+      if (previewImage) gsap.to(previewImage, { x, y, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+      if (previewWrap) gsap.to(previewWrap, { x: 24, y: -8, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
       cursor.tilt(x * 0.35, y * -0.35);
     };
 
@@ -68,39 +81,6 @@ export const initHoverEffects = (container, cursor, scroll) => {
       item.removeEventListener('mouseleave', leave);
       item.removeEventListener('mousemove', move);
     });
-  });
-
-  const filterButtons = [...container.querySelectorAll('[data-filter]')];
-  const viewButtons = [...container.querySelectorAll('[data-view]')];
-  const viewPanels = [...container.querySelectorAll('[data-view-panel]')];
-  const filterTargets = [...container.querySelectorAll('[data-categories]')];
-
-  filterButtons.forEach((button) => {
-    const onClick = () => {
-      filterButtons.forEach((item) => item.classList.toggle('is-active', item === button));
-      const filter = button.dataset.filter;
-      filterTargets.forEach((item) => {
-        const visible = filter === 'all' || item.dataset.categories.includes(filter);
-        item.classList.toggle('visible', visible);
-        item.classList.toggle('is-hidden', !visible);
-      });
-      window.requestAnimationFrame(() => scroll.update());
-    };
-
-    button.addEventListener('click', onClick);
-    destroyers.push(() => button.removeEventListener('click', onClick));
-  });
-
-  viewButtons.forEach((button) => {
-    const onClick = () => {
-      viewButtons.forEach((item) => item.classList.toggle('is-active', item === button));
-      viewPanels.forEach((panel) => panel.classList.toggle('visible', panel.dataset.viewPanel === button.dataset.view));
-      scroll.scrollToTop();
-      window.requestAnimationFrame(() => scroll.update());
-    };
-
-    button.addEventListener('click', onClick);
-    destroyers.push(() => button.removeEventListener('click', onClick));
   });
 
   return {

@@ -148,6 +148,39 @@
   align-items: center;
 }
 
+.featured-work .container {
+  position: relative;
+}
+
+.featured-work__preview {
+  position: absolute;
+  top: 7rem;
+  right: var(--container-padding);
+  width: min(22vw, 17rem);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.92);
+  transform-origin: 100% 0;
+  z-index: 3;
+}
+
+.featured-work__preview-media {
+  aspect-ratio: 1 / 1.2;
+  overflow: hidden;
+  background: var(--color-lightgray);
+}
+
+.featured-work__preview-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.featured-work__preview-copy {
+  padding-top: 0.85rem;
+}
+
 .featured-work__list {
   border-top: 1px solid var(--color-border);
 }
@@ -456,6 +489,10 @@
     grid-template-columns: 1fr;
   }
 
+  .featured-work__preview {
+    display: none;
+  }
+
   .featured-work__service,
   .featured-work__year {
     text-align: left;
@@ -536,6 +573,10 @@
   .home-intro .btn-round--small {
     width: 7.5rem;
     height: 7.5rem;
+  }
+
+  .featured-work__head {
+    align-items: end;
   }
 
   .grid-sub-title {
