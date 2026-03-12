@@ -139,13 +139,7 @@
 }
 
 .fixed-nav__curve {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 6vw;
-  height: 100%;
-  transform: translateX(-100%);
-  background: radial-gradient(175% 90% at 100% 50%, transparent 62%, var(--color-dark-alt) 63%);
+  display: none;
 }
 
 .fixed-nav__inner {
@@ -280,6 +274,11 @@
 .site-main.scrolled .floating-menu,
 .nav-active .floating-menu {
   transform: scale(1);
+}
+
+.site-main.at-top .floating-menu:not(.is-forced),
+.site-main:not(.scrolled) .floating-menu:not(.is-forced) {
+  transform: scale(0);
 }
 
 .pill,

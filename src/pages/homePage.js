@@ -6,12 +6,13 @@ const featured = projects.slice(0, 4)
     (project, index) => `
       <li class="featured-work__item" data-project-card data-project-index="${index}" data-preview="${project.image}" data-accent="${project.accent}">
         <a href="/work" data-route-link data-cursor="view project">
-          <div class="featured-work__thumb" style="--project-accent:${project.accent}">
-            <img src="${project.image}" alt="${project.title}" loading="lazy" decoding="async" />
-          </div>
-          <div class="featured-work__meta">
-            <h3>${project.title}</h3>
-            <p>${project.services}</p>
+          <div class="row">
+            <div class="flex-col">
+              <h4>${project.title}</h4>
+            </div>
+            <div class="flex-col">
+              <p>${project.services}</p>
+            </div>
           </div>
         </a>
       </li>
@@ -71,6 +72,12 @@ export const buildHomePage = () => `
         <ul class="featured-work__list">
           ${featured}
         </ul>
+      </div>
+    </section>
+
+    <section class="archive-cta section" data-scroll-section>
+      <div class="container">
+        <a href="/work" class="archive-pill" data-route-link>More work <sup>11</sup></a>
       </div>
     </section>
   ${renderFooter()}

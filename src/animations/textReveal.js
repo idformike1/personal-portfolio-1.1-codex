@@ -31,6 +31,10 @@ export const initTextReveal = (container) => {
 
   targets.forEach((target) => {
     const pieces = splitText(target, target.dataset.split);
+    if (target.closest('.footer')) {
+      gsap.set(pieces, { yPercent: 0 });
+      return;
+    }
     const tween = gsap.from(pieces, {
       yPercent: 110,
       rotate: 0.001,

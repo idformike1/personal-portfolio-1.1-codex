@@ -29,7 +29,7 @@ export class LocomotiveEngine {
           this.instance.scrollTo(value, { duration: 0, disableLerp: true });
           return value;
         }
-        return this.instance.scroll.instance.scroll.y;
+        return this.getScrollY();
       },
       getBoundingClientRect: () => ({
         top: 0,
@@ -44,6 +44,14 @@ export class LocomotiveEngine {
     ScrollTrigger.addEventListener('refresh', this.onRefresh);
     window.addEventListener('resize', this.onResize);
     ScrollTrigger.refresh();
+  }
+
+  getScrollY() {
+    if (!this.instance) return window.scrollY || 0;
+    return this.instance.scroll?.y
+      ?? this.instance.scroll?.instance?.scroll?.y
+      ?? this.instance.scroll?.instance?.delta?.y
+      ?? 0;
   }
 
   onRefresh() {
