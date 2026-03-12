@@ -1,0 +1,155 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: var(--color-dark-alt);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 450;
+  line-height: 1.6;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+  font-weight: 450;
+}
+
+h1 {
+  font-size: calc(clamp(3.25em, 7vw, 8em) * 0.875);
+  line-height: 1.065;
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-size: calc(clamp(3.25em, 5vw, 4.5em) * 0.75);
+  line-height: 1.065;
+  letter-spacing: -0.045em;
+}
+
+h4 {
+  font-size: clamp(1.55em, 2.3vw, 2.5em);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+h5,
+.eyebrow {
+  font-size: 0.6em;
+  line-height: 1.065;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+}
+
+::selection {
+  color: var(--color-white);
+  background: var(--color-blue);
+}
+
+.site-main {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.container {
+  width: min(100%, 100em);
+  margin: 0 auto;
+  padding-inline: var(--container-padding);
+}
+
+.container.medium {
+  padding-inline: calc(var(--container-padding) * 2);
+}
+
+.section {
+  padding-block: var(--section-padding);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.flex-col {
+  width: 100%;
+  position: relative;
+}
+
+.theme-dark,
+.theme-dark a,
+.theme-dark p,
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark h5 {
+  color: var(--color-white);
+}
+
+.stripe {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.theme-dark .stripe {
+  background: var(--color-border-dark);
+}
+
+.split-wrap {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.split-inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+.split-space {
+  display: inline-block;
+  width: 0.25em;
+}
