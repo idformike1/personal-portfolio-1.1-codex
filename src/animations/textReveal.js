@@ -25,7 +25,7 @@ const splitText = (element, mode) => {
   return parts;
 };
 
-export const initTextReveal = (container) => {
+export const initTextReveal = (container, scrollController) => {
   const targets = [...container.querySelectorAll('[data-split]')];
   const animations = [];
 
@@ -43,7 +43,8 @@ export const initTextReveal = (container) => {
       ease: 'expo.out',
       scrollTrigger: {
         trigger: target,
-        start: 'top 88%'
+        start: 'top 88%',
+        scroller: scrollController?.scrollerElement
       }
     });
     animations.push(tween);

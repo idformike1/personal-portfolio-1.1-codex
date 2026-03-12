@@ -2,6 +2,36 @@ import gsap from 'gsap';
 
 export const initHoverEffects = (container, cursor, scroll) => {
   const destroyers = [];
+  const magneticButtons = [...container.querySelectorAll('.btn-round, .pill, .archive-pill, .view-toggle, .nav-bar__menu, .floating-menu, [data-magnetic]')];
+
+  magneticButtons.forEach((button) => {
+    const strength = button.classList.contains('btn-round') ? 24 : 14;
+    const move = (event) => {
+      const bounds = button.getBoundingClientRect();
+      const x = (event.clientX - bounds.left - bounds.width / 2) / bounds.width;
+      const y = (event.clientY - bounds.top - bounds.height / 2) / bounds.height;
+      gsap.to(button, {
+        x: x * strength,
+        y: y * strength,
+        duration: 0.35,
+        ease: 'power3.out'
+      });
+    };
+    const leave = () => {
+      gsap.to(button, {
+        x: 0,
+        y: 0,
+        duration: 0.65,
+        ease: 'elastic.out(1, 0.45)'
+      });
+    };
+    button.addEventListener('pointermove', move);
+    button.addEventListener('pointerleave', leave);
+    destroyers.push(() => {
+      button.removeEventListener('pointermove', move);
+      button.removeEventListener('pointerleave', leave);
+    });
+  });
 
   const projectItems = [...container.querySelectorAll('[data-project-card], [data-project-row]')];
   projectItems.forEach((item) => {

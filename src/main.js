@@ -4,15 +4,11 @@ import './styles/components.css';
 import './styles/layout.css';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { buildHomePage } from './pages/homePage.js';
 import { buildWorkPage } from './pages/workPage.js';
-import { initLoader } from './animations/loader.js';
-import { initPageTransitions } from './animations/pageTransitions.js';
+import { runLoaderAnimation } from './animations/loaderAnimation.js';
 import { mountSite } from './site.js';
-
-gsap.registerPlugin(ScrollTrigger);
+import { TimelineController } from './engine/timelineController.js';
 
 const app = document.querySelector('[data-app]');
 
@@ -68,12 +64,12 @@ const mountCurrent = (container) => {
 
 mountCurrent(document.querySelector('[data-barba="container"]'));
 
-initLoader({
+runLoaderAnimation({
   onComplete: () => {
-    initPageTransitions({
+    new TimelineController({
       renderRoute,
       onMount: mountCurrent,
       getMounted: () => state.mounted
-    });
+    }).init();
   }
 });
