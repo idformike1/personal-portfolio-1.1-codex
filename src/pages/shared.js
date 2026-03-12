@@ -68,19 +68,21 @@ export const renderFooter = () => `
         <div class="rounded-div"></div>
       </div>
     </div>
-    <div class="footer-wrap theme-dark" data-scroll-section>
+    <div class="footer-wrap footer-footer-wrap theme-dark" data-scroll-section>
       <footer class="footer section" data-scroll-section>
         <div class="container medium">
           <div class="row footer__headline-row">
             <div class="flex-col">
               <div class="arrow">↗</div>
-              <h2 data-split="lines"><span><i class="profile-picture"></i> Let’s work</span><span>together</span></h2>
+              <h2><span><i class="profile-picture"></i> Let’s work</span><span>together</span></h2>
             </div>
           </div>
           <div class="row footer__cta-row">
             <div class="flex-col">
               <div class="stripe"></div>
-              <a href="/" class="btn-round" data-route-link data-cursor="explore">Get in touch</a>
+              <div class="btn-fixed">
+                <a href="/" class="btn-round" data-route-link data-cursor="explore">Get in touch</a>
+              </div>
             </div>
           </div>
           <div class="row footer__links-row">
@@ -110,6 +112,7 @@ export const renderFooter = () => `
           </div>
         </div>
       </footer>
+      <div class="overlay-gradient"></div>
     </div>
   </div>
 `;
