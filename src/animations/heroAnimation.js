@@ -16,17 +16,19 @@ export const initHeroAnimation = (container, scrollController) => {
 
   track.innerHTML += track.innerHTML;
   let offset = 0;
-  let direction = 1;
+  let velocity = 0.06;
 
   const tick = () => {
-    offset += 0.06 * direction;
-    if (offset >= 50) offset = 0;
-    if (offset <= 0) offset = 50;
+    offset += velocity;
+    if (offset >= 50) offset -= 50;
+    if (offset <= 0) offset += 50;
     gsap.set(track, { xPercent: -offset });
   };
 
   const onScroll = ({ y, lastY }) => {
-    direction = y > lastY ? -1 : 1;
+    const delta = y - lastY;
+    const targetVelocity = delta > 0 ? -0.1 : delta < 0 ? 0.1 : velocity;
+    velocity += (targetVelocity - velocity) * 0.2;
     siteMain?.classList.toggle('scrolled', y > 64);
     siteMain?.classList.toggle('at-top', y <= 64);
   };

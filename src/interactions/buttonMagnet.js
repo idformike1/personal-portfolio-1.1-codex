@@ -19,7 +19,7 @@ export class ButtonMagnet {
     const buttons = [...this.container.querySelectorAll(BUTTON_SELECTOR)];
 
     buttons.forEach((button) => {
-      const strength = button.classList.contains('btn-round') ? 24 : 12;
+      const multiplier = 0.2;
 
       const onEnter = () => {
         this.cursor?.setState({ mode: 'hover', label: '' });
@@ -33,12 +33,14 @@ export class ButtonMagnet {
 
       const onMove = (event) => {
         const bounds = button.getBoundingClientRect();
-        const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * strength;
-        const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * strength;
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+        const x = (event.clientX - centerX) * multiplier;
+        const y = (event.clientY - centerY) * multiplier;
         gsap.to(button, {
           x,
           y,
-          duration: 0.28,
+          duration: 0.3,
           ease: 'power3.out',
           overwrite: 'auto'
         });
@@ -50,7 +52,7 @@ export class ButtonMagnet {
           x: 0,
           y: 0,
           scale: 1,
-          duration: 0.72,
+          duration: 0.8,
           ease: 'elastic.out(1, 0.45)',
           overwrite: 'auto'
         });

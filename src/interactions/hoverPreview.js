@@ -35,7 +35,7 @@ export class HoverPreview {
           gsap.to(previewWrap, {
             autoAlpha: 1,
             scale: 1,
-            duration: 0.38,
+            duration: 0.6,
             ease: 'power3.out',
             overwrite: 'auto'
           });
@@ -44,7 +44,7 @@ export class HoverPreview {
         if (previewImage) {
           gsap.fromTo(previewImage, { scale: 1.06 }, {
             scale: 1,
-            duration: 0.58,
+            duration: 0.6,
             ease: 'power3.out',
             overwrite: 'auto'
           });
@@ -52,31 +52,32 @@ export class HoverPreview {
       };
 
       const onMove = (event) => {
-        const bounds = item.getBoundingClientRect();
-        const y = bounds.top + bounds.height * 0.5;
-        const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
-        const rotate = ((event.clientY - bounds.top) / bounds.height - 0.5) * -8;
+        const x = event.clientX + 56;
+        const y = event.clientY - 32;
+        const rotateY = ((event.clientX / window.innerWidth) - 0.5) * 8;
+        const rotateX = ((event.clientY / window.innerHeight) - 0.5) * -8;
 
         if (previewWrap) {
           gsap.to(previewWrap, {
-            y: y - window.innerHeight * 0.35,
-            x: 0,
-            duration: 0.36,
-            ease: 'power2.out',
+            x,
+            y,
+            duration: 0.35,
+            ease: 'power3.out',
             overwrite: 'auto'
           });
         }
 
         if (previewImage) {
           gsap.to(previewImage, {
-            x,
-            duration: 0.42,
+            x: 0,
+            y: 0,
+            duration: 0.35,
             ease: 'power3.out',
             overwrite: 'auto'
           });
         }
 
-        this.cursor?.tilt(x * 0.4, rotate);
+        this.cursor?.tilt(rotateY, rotateX);
       };
 
       const onLeave = () => {
@@ -86,8 +87,8 @@ export class HoverPreview {
           gsap.to(previewWrap, {
             autoAlpha: 0,
             scale: 0.95,
-            duration: 0.26,
-            ease: 'power2.out',
+            duration: 0.3,
+            ease: 'power3.out',
             overwrite: 'auto'
           });
         }
@@ -95,8 +96,9 @@ export class HoverPreview {
         if (previewImage) {
           gsap.to(previewImage, {
             x: 0,
+            y: 0,
             duration: 0.24,
-            ease: 'power2.out',
+            ease: 'power3.out',
             overwrite: 'auto'
           });
         }

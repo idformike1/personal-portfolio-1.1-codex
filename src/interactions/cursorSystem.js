@@ -26,6 +26,11 @@ export class CursorSystem {
       return this;
     }
 
+    this.layer.style.pointerEvents = 'none';
+    this.layer.style.zIndex = '25';
+    if (this.preview) this.preview.style.pointerEvents = 'none';
+    if (this.labelWrap) this.labelWrap.style.pointerEvents = 'none';
+
     this.dotX = gsap.quickSetter(this.dot, 'x', 'px');
     this.dotY = gsap.quickSetter(this.dot, 'y', 'px');
     this.labelX = gsap.quickSetter(this.labelWrap, 'x', 'px');
@@ -58,13 +63,13 @@ export class CursorSystem {
 
   setState({ mode = 'default', label = '', image = '', accent = '#e9eaeb' } = {}) {
     this.container.dataset.cursorState = mode;
-    this.label.textContent = label;
+    this.label.textContent = mode === 'view' ? (label || 'View') : '';
     if (image) this.previewImage.src = image;
     this.preview.style.setProperty('--preview-accent', accent);
 
     gsap.to(this.labelWrap, {
-      scale: mode === 'default' ? 0 : 1,
-      autoAlpha: mode === 'default' ? 0 : 1,
+      scale: mode === 'view' ? 1 : 0,
+      autoAlpha: mode === 'view' ? 1 : 0,
       duration: 0.24,
       ease: 'power3.out',
       overwrite: 'auto'
@@ -79,9 +84,9 @@ export class CursorSystem {
     });
 
     gsap.to(this.dot, {
-      scale: mode === 'hover' ? 0.45 : 1,
+      scale: mode === 'hover' ? 1.8 : mode === 'view' ? 0.75 : 1,
       duration: 0.25,
-      ease: 'power2.out',
+      ease: 'power3.out',
       overwrite: 'auto'
     });
   }
