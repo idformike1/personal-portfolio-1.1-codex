@@ -197,10 +197,14 @@
 
 .featured-work__row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
   gap: 1.5rem;
   align-items: center;
   padding: calc(var(--section-padding) / 3) 0;
+}
+
+.featured-work__title {
+  position: relative;
 }
 
 .featured-work__title h3 {
@@ -208,6 +212,18 @@
   line-height: 0.95;
 }
 
+.featured-work__highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.45rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.featured-work__client,
 .featured-work__service,
 .featured-work__year {
   text-align: right;
@@ -494,6 +510,7 @@
   }
 
   .featured-work__service,
+  .featured-work__client,
   .featured-work__year {
     text-align: left;
   }

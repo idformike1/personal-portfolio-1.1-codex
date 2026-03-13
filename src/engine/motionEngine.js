@@ -25,6 +25,7 @@ export class MotionEngine {
     this.cleanups.push(initTextReveal(this.container, this.scrollController));
     this.cleanups.push(initSectionReveal(this.container, this.scrollController));
     this.cleanups.push(initFooterReveal(this.container, this.scrollController));
+    this.scrollController.update();
 
     return this;
   }

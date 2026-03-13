@@ -15,6 +15,8 @@ export const initHoverEffects = (container, cursor) => {
   const projectItems = [...container.querySelectorAll('[data-project-card], [data-project-row]')];
   projectItems.forEach((item) => {
     const title = item.querySelector('h3, h4');
+    const client = item.querySelector('.featured-work__client p');
+    const highlight = item.querySelector('.featured-work__highlight');
     const image = previewImage;
 
     const enter = () => {
@@ -22,7 +24,7 @@ export const initHoverEffects = (container, cursor) => {
       cursor.setState(item.dataset.projectRow ? 'view project' : 'explore', item.dataset.preview, item.dataset.accent);
       if (previewImage && item.dataset.preview) previewImage.src = item.dataset.preview;
       if (previewTitle && title) previewTitle.textContent = title.textContent.trim();
-      if (previewMeta) previewMeta.textContent = `${item.dataset.services || ''}${item.dataset.year ? ` • ${item.dataset.year}` : ''}`;
+      if (previewMeta) previewMeta.textContent = `${client?.textContent || ''}${item.dataset.year ? ` • ${item.dataset.year}` : ''}`;
       if (previewWrap) {
         gsap.to(previewWrap, {
           autoAlpha: 1,
@@ -34,6 +36,7 @@ export const initHoverEffects = (container, cursor) => {
       }
       if (image) gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 0.7, ease: 'power3.out', overwrite: 'auto' });
       if (title) gsap.to(title, { x: -12, duration: 0.45, ease: 'power3.out' });
+      if (highlight) gsap.to(highlight, { scaleX: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
     };
 
     const leave = () => {
@@ -60,6 +63,7 @@ export const initHoverEffects = (container, cursor) => {
         });
       }
       if (title) gsap.to(title, { x: 0, duration: 0.45, ease: 'power3.out' });
+      if (highlight) gsap.to(highlight, { scaleX: 0, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
     };
 
     const move = (event) => {

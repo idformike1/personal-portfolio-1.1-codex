@@ -9,6 +9,10 @@ const featured = projects.slice(0, 4)
           <div class="featured-work__row">
             <div class="featured-work__title">
               <h3>${project.title}</h3>
+              <span class="featured-work__highlight" aria-hidden="true"></span>
+            </div>
+            <div class="featured-work__client">
+              <p>${project.location}</p>
             </div>
             <div class="featured-work__service">
               <p>${project.services}</p>
@@ -77,7 +81,7 @@ export const buildHomePage = () => `
             <img src="${projects[0].image}" alt="" data-featured-preview-image />
           </div>
           <div class="featured-work__preview-copy">
-            <p class="eyebrow" data-featured-preview-meta>${projects[0].services} • ${projects[0].year}</p>
+            <p class="eyebrow" data-featured-preview-meta>${projects[0].location} • ${projects[0].year}</p>
             <p data-featured-preview-title>${projects[0].title}</p>
           </div>
         </div>

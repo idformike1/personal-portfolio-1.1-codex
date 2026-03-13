@@ -9,8 +9,10 @@ export class LocomotiveEngine {
     this.scrollListeners = new Set();
     this.lastY = 0;
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleTriggerUpdate = this.handleTriggerUpdate.bind(this);
     this.onResize = this.onResize.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
+    this.onWindowLoad = this.onWindowLoad.bind(this);
   }
 
   init() {
@@ -25,6 +27,7 @@ export class LocomotiveEngine {
     });
 
     this.instance.on('scroll', this.handleScroll);
+    this.instance.on('scroll', this.handleTriggerUpdate);
 
     ScrollTrigger.scrollerProxy(this.scrollerElement, {
       scrollTop: (value) => {
@@ -46,11 +49,12 @@ export class LocomotiveEngine {
     ScrollTrigger.defaults({ scroller: this.scrollerElement });
     ScrollTrigger.addEventListener('refresh', this.onRefresh);
     window.addEventListener('resize', this.onResize);
+    window.addEventListener('load', this.onWindowLoad, { once: true });
     ScrollTrigger.refresh();
+    window.requestAnimationFrame(() => this.update());
   }
 
   handleScroll(payload = {}) {
-    ScrollTrigger.update();
     const y = payload.scroll?.y
       ?? payload.scroll?.instance?.scroll?.y
       ?? this.getScrollY();
@@ -61,6 +65,10 @@ export class LocomotiveEngine {
     };
     this.lastY = y;
     this.scrollListeners.forEach((listener) => listener(detail));
+  }
+
+  handleTriggerUpdate() {
+    ScrollTrigger.update();
   }
 
   getScrollY() {
@@ -78,6 +86,10 @@ export class LocomotiveEngine {
   onResize() {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = window.setTimeout(() => this.update(), 120);
+  }
+
+  onWindowLoad() {
+    this.update();
   }
 
   stop() {
@@ -108,9 +120,11 @@ export class LocomotiveEngine {
 
   destroy() {
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('load', this.onWindowLoad);
     clearTimeout(this.resizeTimer);
     ScrollTrigger.removeEventListener('refresh', this.onRefresh);
     this.instance?.off?.('scroll', this.handleScroll);
+    this.instance?.off?.('scroll', this.handleTriggerUpdate);
     this.scrollListeners.clear();
     this.instance?.destroy();
     this.instance = null;
