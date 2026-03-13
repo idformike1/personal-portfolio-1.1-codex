@@ -5,7 +5,6 @@ import { InteractionController } from './interactionController.js';
 import { initTextReveal } from '../animations/textReveal.js';
 import { initHeroAnimation } from '../animations/heroAnimation.js';
 import { initSectionReveal } from '../animations/sectionReveal.js';
-import { initButtonInteractions } from '../animations/buttonInteractions.js';
 import { initFooterReveal } from '../animations/footerReveal.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,7 +19,6 @@ export class MotionEngine {
     this.scrollController = new ScrollController(this.container).init();
     this.interactionController = new InteractionController(this.container, this.scrollController).init();
 
-    this.cleanups.push(initButtonInteractions(this.container));
     this.cleanups.push(initHeroAnimation(this.container, this.scrollController));
     this.cleanups.push(initTextReveal(this.container, this.scrollController));
     this.cleanups.push(initSectionReveal(this.container, this.scrollController));
