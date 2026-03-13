@@ -5,7 +5,7 @@ export const renderFooter = () => `
       </div>
     </div>
     <div class="footer-wrap footer-footer-wrap theme-dark" data-scroll-section>
-      <footer class="footer section">
+      <footer class="footer section" id="contact">
         <div class="container medium">
           <div class="row footer__headline-row">
             <div class="flex-col">
@@ -17,25 +17,25 @@ export const renderFooter = () => `
             <div class="flex-col">
               <div class="stripe"></div>
               <div class="btn-fixed">
-                <a href="/" class="btn-round" data-route-link data-cursor="explore">Get in touch</a>
+                <a href="mailto:info@dennissnellenberg.com" class="btn-round" data-cursor="explore">Get in touch</a>
               </div>
             </div>
           </div>
           <div class="row footer__links-row">
             <div class="flex-col">
-              <a href="mailto:info@dennissnellenberg.com" class="footer__email">info@dennissnellenberg.com</a>
-              <a href="tel:+31627847430" class="footer__phone">+31 6 27 84 74 30</a>
+              <a href="mailto:info@dennissnellenberg.com" class="footer__contact-button footer__email">info@dennissnellenberg.com</a>
+              <a href="tel:+31627847430" class="footer__contact-button footer__phone">+31 6 27 84 74 30</a>
             </div>
           </div>
         </div>
         <div class="container footer__bottom">
           <div>
             <p class="eyebrow">Version</p>
-            <p>2022 © Edition</p>
+            <p>2026</p>
           </div>
           <div>
             <p class="eyebrow">Local time</p>
-            <p data-local-time></p>
+            <p data-local-time>Local time: --:--</p>
           </div>
           <div>
             <p class="eyebrow">Socials</p>

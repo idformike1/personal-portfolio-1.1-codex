@@ -4,6 +4,7 @@ export const initHamburger = (container, scroll) => {
   const toggles = container.querySelectorAll('[data-nav-toggle]');
   const overlay = container.querySelector('[data-nav-overlay]');
   const floating = container.querySelector('.floating-menu');
+  const navLinks = container.querySelectorAll('.fixed-nav a[data-route-link], .nav-bar a[data-route-link]');
   const destroyers = [];
   let visible = false;
 
@@ -39,6 +40,17 @@ export const initHamburger = (container, scroll) => {
 
   overlay?.addEventListener('click', toggle);
   destroyers.push(() => overlay?.removeEventListener('click', toggle));
+
+  navLinks.forEach((link) => {
+    const onNav = () => {
+      if (!container.classList.contains('nav-active')) return;
+      container.classList.remove('nav-active');
+      scroll.start();
+      showFloating(true);
+    };
+    link.addEventListener('click', onNav);
+    destroyers.push(() => link.removeEventListener('click', onNav));
+  });
 
   return {
     destroy() {

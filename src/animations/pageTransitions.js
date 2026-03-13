@@ -6,8 +6,30 @@ export const initPageTransitions = ({ renderRoute, onMount, getMounted }) => {
 
   let isTransitioning = false;
 
+  const scrollToHash = (hash) => {
+    if (!hash) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
   const swapTo = async (path, { replace = false } = {}) => {
-    if (isTransitioning || path === window.location.pathname) return;
+    const [nextPath, hash = ''] = path.split('#');
+    const normalizedHash = hash ? `#${hash}` : '';
+
+    if (!nextPath) return;
+
+    if (isTransitioning) return;
+    if (nextPath === window.location.pathname) {
+      if (normalizedHash) {
+        if (replace) window.history.replaceState({}, '', `${nextPath}${normalizedHash}`);
+        else window.history.pushState({}, '', `${nextPath}${normalizedHash}`);
+        scrollToHash(normalizedHash);
+      }
+      return;
+    }
     isTransitioning = true;
 
     const current = wrapper.querySelector('[data-barba="container"]');
@@ -23,10 +45,10 @@ export const initPageTransitions = ({ renderRoute, onMount, getMounted }) => {
 
       mounted?.destroy?.();
       current?.remove();
-      if (replace) window.history.replaceState({}, '', path);
-      else window.history.pushState({}, '', path);
+      if (replace) window.history.replaceState({}, '', `${nextPath}${normalizedHash}`);
+      else window.history.pushState({}, '', `${nextPath}${normalizedHash}`);
 
-      wrapper.insertAdjacentHTML('beforeend', renderRoute(path));
+      wrapper.insertAdjacentHTML('beforeend', renderRoute(nextPath));
       const next = wrapper.querySelector('[data-barba="container"]:last-child');
       onMount(next);
 
@@ -40,6 +62,8 @@ export const initPageTransitions = ({ renderRoute, onMount, getMounted }) => {
           ease: 'expo.out'
         }
       );
+
+      if (normalizedHash) scrollToHash(normalizedHash);
     } finally {
       isTransitioning = false;
     }
@@ -51,10 +75,11 @@ export const initPageTransitions = ({ renderRoute, onMount, getMounted }) => {
     const href = link.getAttribute('href');
     if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
     event.preventDefault();
-    swapTo(new URL(href, window.location.origin).pathname);
+    const next = new URL(href, window.location.origin);
+    swapTo(`${next.pathname}${next.hash}`);
   });
 
   window.addEventListener('popstate', () => {
-    swapTo(window.location.pathname, { replace: true });
+    swapTo(`${window.location.pathname}${window.location.hash}`, { replace: true });
   });
 };

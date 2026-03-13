@@ -19,8 +19,8 @@ export const renderNavbar = ({ namespace, heroClass = '' }) => `
         <ul class="fixed-nav__links">
           <li class="${namespace === 'home' ? 'is-active' : ''}"><a href="/" data-route-link>Home</a></li>
           <li class="${namespace === 'work' ? 'is-active' : ''}"><a href="/work" data-route-link>Work</a></li>
-          <li><a href="/" data-route-link>About</a></li>
-          <li><a href="/" data-route-link>Contact</a></li>
+          <li><a href="/#about" data-route-link>About</a></li>
+          <li><a href="/#contact" data-route-link>Contact</a></li>
         </ul>
       </div>
       <div class="fixed-nav__group">
@@ -51,8 +51,8 @@ export const renderNavbar = ({ namespace, heroClass = '' }) => `
       </div>
       <nav class="nav-bar__links">
         <a class="${namespace === 'work' ? 'is-active' : ''}" href="/work" data-route-link>Work</a>
-        <a href="/" data-route-link>About</a>
-        <a href="/" data-route-link>Contact</a>
+        <a href="/#about" data-route-link>About</a>
+        <a href="/#contact" data-route-link>Contact</a>
         <button class="nav-bar__menu" data-nav-toggle>
           <span></span>
           <span></span>

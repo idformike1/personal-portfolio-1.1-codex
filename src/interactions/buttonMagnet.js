@@ -3,6 +3,7 @@ import gsap from 'gsap';
 const BUTTON_SELECTOR = [
   '.btn-round',
   '.archive-pill',
+  '.footer__contact-button',
   '.nav-bar__menu',
   '.floating-menu',
   '[data-magnetic]'
@@ -20,7 +21,7 @@ export class ButtonMagnet {
 
     buttons.forEach((button) => {
       const multiplier = 0.2;
-      const isDarkFillButton = button.matches('.archive-pill, [data-magnetic], .nav-bar__menu');
+      const isCtaButton = button.matches('.btn-round, .archive-pill, .footer__contact-button, [data-magnetic]');
 
       const onEnter = () => {
         this.cursor?.setState({ mode: 'hover', label: '' });
@@ -30,10 +31,10 @@ export class ButtonMagnet {
           ease: 'power2.out',
           overwrite: 'auto'
         });
-        if (isDarkFillButton) {
+        if (isCtaButton) {
           gsap.to(button, {
-            backgroundColor: '#1C1D20',
-            color: '#FFFFFF',
+            backgroundColor: '#9EA1AC',
+            color: '#111111',
             duration: 0.6,
             ease: 'power3.out',
             overwrite: 'auto'
@@ -66,10 +67,10 @@ export class ButtonMagnet {
           ease: 'elastic.out(1, 0.45)',
           overwrite: 'auto'
         });
-        if (isDarkFillButton) {
+        if (isCtaButton) {
           gsap.to(button, {
-            backgroundColor: 'transparent',
-            color: '#1C1D20',
+            backgroundColor: '#455CE9',
+            color: '#FFFFFF',
             duration: 0.6,
             ease: 'power3.out',
             overwrite: 'auto'

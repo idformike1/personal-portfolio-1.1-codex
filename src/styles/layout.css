@@ -134,7 +134,7 @@
 
 .home-intro p {
   max-width: 16em;
-  margin-bottom: 4rem;
+  margin-bottom: 2.75rem;
 }
 
 .home-intro .btn-round--small {
@@ -144,41 +144,8 @@
 .featured-work__head {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   align-items: center;
-}
-
-.featured-work .container {
-  position: relative;
-}
-
-.featured-work__preview {
-  position: absolute;
-  top: 7rem;
-  right: var(--container-padding);
-  width: min(22vw, 17rem);
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0.92);
-  transform-origin: 100% 0;
-  z-index: 3;
-}
-
-.featured-work__preview-media {
-  aspect-ratio: 1 / 1.2;
-  overflow: hidden;
-  background: var(--color-lightgray);
-}
-
-.featured-work__preview-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  will-change: transform;
-}
-
-.featured-work__preview-copy {
-  padding-top: 0.85rem;
 }
 
 .featured-work__list {
@@ -420,12 +387,14 @@
 
 .footer__headline-row h2 {
   max-width: 12ch;
+  font-size: clamp(4rem, 7vw, 6.6rem);
+  line-height: 0.95;
 }
 
 .profile-picture {
   display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
+  width: 0.95em;
+  height: 0.95em;
   margin-right: 0.12em;
   border-radius: 50%;
   transform: translateY(0.09em);
@@ -444,11 +413,15 @@
   margin-top: -6rem;
 }
 
-.footer__email,
-.footer__phone {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+.footer__contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4.25em;
+  padding: 0 2rem;
+  border-radius: 2.125em;
+  background: var(--color-blue);
+  color: var(--color-white);
 }
 
 .footer__bottom {
@@ -507,10 +480,6 @@
     grid-template-columns: 1fr;
   }
 
-  .featured-work__preview {
-    display: none;
-  }
-
   .featured-work__service,
   .featured-work__client,
   .featured-work__year {
@@ -528,6 +497,10 @@
   .btn-fixed {
     justify-content: flex-start;
     margin-top: 2rem;
+  }
+
+  .footer__contact-button {
+    width: 100%;
   }
 }
 

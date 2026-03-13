@@ -27,9 +27,31 @@ export class MotionEngine {
     this.cleanups.push(initTextReveal(this.container, this.scrollController));
     this.cleanups.push(initSectionReveal(this.container, this.scrollController));
     this.cleanups.push(initFooterReveal(this.container, this.scrollController));
+    this.cleanups.push(this.initLocalTime());
     this.scrollController.update();
 
     return this;
+  }
+
+  initLocalTime() {
+    const node = this.container.querySelector('[data-local-time]');
+    if (!node) return { destroy() {} };
+
+    const update = () => {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      node.textContent = `Local time: ${hours}:${minutes}`;
+    };
+
+    update();
+    const timer = window.setInterval(update, 1000 * 30);
+
+    return {
+      destroy() {
+        window.clearInterval(timer);
+      }
+    };
   }
 
   get scroll() {
