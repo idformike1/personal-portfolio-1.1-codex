@@ -89,6 +89,13 @@ export class CursorSystem {
       ease: 'power3.out',
       overwrite: 'auto'
     });
+
+    gsap.to(this.dot, {
+      backgroundColor: mode === 'hover' ? '#455CE9' : '#1C1D20',
+      duration: 0.25,
+      ease: 'power3.out',
+      overwrite: 'auto'
+    });
   }
 
   tilt(x, y) {
