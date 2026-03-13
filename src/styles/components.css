@@ -202,14 +202,6 @@
   gap: 0.2rem;
 }
 
-.nav-bar__brand-mark {
-  transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-}
-
-.nav-bar__brand:hover .nav-bar__brand-mark {
-  transform: rotate(180deg);
-}
-
 .nav-bar__links {
   display: flex;
   align-items: center;
@@ -310,10 +302,7 @@
   transition: none;
 }
 
-.pill:hover::before,
 .pill.is-active::before,
-.archive-pill:hover::before,
-.view-toggle:hover::before,
 .view-toggle.is-active::before {
   transform: translate3d(0, -76%, 0);
 }
@@ -324,10 +313,7 @@
   color: var(--color-ink);
 }
 
-.pill:hover,
 .pill.is-active,
-.archive-pill:hover,
-.view-toggle:hover,
 .view-toggle.is-active {
   color: var(--color-ink);
 }
