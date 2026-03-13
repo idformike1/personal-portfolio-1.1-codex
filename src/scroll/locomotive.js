@@ -10,9 +10,11 @@ export class LocomotiveEngine {
     this.lastY = 0;
     this.handleScroll = this.handleScroll.bind(this);
     this.handleTriggerUpdate = this.handleTriggerUpdate.bind(this);
+    this.handleAssetLoad = this.handleAssetLoad.bind(this);
     this.onResize = this.onResize.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onWindowLoad = this.onWindowLoad.bind(this);
+    this.imageListeners = [];
   }
 
   init() {
@@ -50,6 +52,7 @@ export class LocomotiveEngine {
     ScrollTrigger.addEventListener('refresh', this.onRefresh);
     window.addEventListener('resize', this.onResize);
     window.addEventListener('load', this.onWindowLoad, { once: true });
+    this.bindAssetUpdates();
     ScrollTrigger.refresh();
     window.requestAnimationFrame(() => this.update());
   }
@@ -71,6 +74,10 @@ export class LocomotiveEngine {
     ScrollTrigger.update();
   }
 
+  handleAssetLoad() {
+    this.update();
+  }
+
   getScrollY() {
     if (!this.instance) return window.scrollY || 0;
     return this.instance.scroll?.y
@@ -90,6 +97,15 @@ export class LocomotiveEngine {
 
   onWindowLoad() {
     this.update();
+  }
+
+  bindAssetUpdates() {
+    const images = [...this.scrollerElement.querySelectorAll('img')];
+    images.forEach((image) => {
+      if (image.complete) return;
+      image.addEventListener('load', this.handleAssetLoad);
+      this.imageListeners.push(image);
+    });
   }
 
   stop() {
@@ -123,6 +139,8 @@ export class LocomotiveEngine {
     window.removeEventListener('load', this.onWindowLoad);
     clearTimeout(this.resizeTimer);
     ScrollTrigger.removeEventListener('refresh', this.onRefresh);
+    this.imageListeners.forEach((image) => image.removeEventListener('load', this.handleAssetLoad));
+    this.imageListeners = [];
     this.instance?.off?.('scroll', this.handleScroll);
     this.instance?.off?.('scroll', this.handleTriggerUpdate);
     this.scrollListeners.clear();

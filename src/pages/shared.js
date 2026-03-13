@@ -69,7 +69,7 @@ export const renderFooter = () => `
       </div>
     </div>
     <div class="footer-wrap footer-footer-wrap theme-dark" data-scroll-section>
-      <footer class="footer section" data-scroll-section>
+      <footer class="footer section">
         <div class="container medium">
           <div class="row footer__headline-row">
             <div class="flex-col">
