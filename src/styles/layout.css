@@ -420,8 +420,6 @@
   min-height: 4.25em;
   padding: 0 2rem;
   border-radius: 2.125em;
-  background: var(--color-blue);
-  color: var(--color-white);
 }
 
 .footer__bottom {

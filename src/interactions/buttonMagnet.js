@@ -21,7 +21,6 @@ export class ButtonMagnet {
 
     buttons.forEach((button) => {
       const multiplier = 0.2;
-      const isCtaButton = button.matches('.btn-round, .archive-pill, .footer__contact-button, [data-magnetic]');
 
       const onEnter = () => {
         this.cursor?.setState({ mode: 'hover', label: '' });
@@ -31,15 +30,6 @@ export class ButtonMagnet {
           ease: 'power2.out',
           overwrite: 'auto'
         });
-        if (isCtaButton) {
-          gsap.to(button, {
-            backgroundColor: '#9EA1AC',
-            color: '#111111',
-            duration: 0.6,
-            ease: 'power3.out',
-            overwrite: 'auto'
-          });
-        }
       };
 
       const onMove = (event) => {
@@ -67,15 +57,6 @@ export class ButtonMagnet {
           ease: 'elastic.out(1, 0.45)',
           overwrite: 'auto'
         });
-        if (isCtaButton) {
-          gsap.to(button, {
-            backgroundColor: '#455CE9',
-            color: '#FFFFFF',
-            duration: 0.6,
-            ease: 'power3.out',
-            overwrite: 'auto'
-          });
-        }
       };
 
       button.addEventListener('pointerenter', onEnter);

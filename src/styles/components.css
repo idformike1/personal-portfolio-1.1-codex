@@ -224,29 +224,50 @@
 .nav-bar__menu span,
 .floating-menu span {
   position: absolute;
-  width: 28%;
-  height: 1px;
+  width: 34%;
+  height: 2px;
+  border-radius: 999px;
   background: currentColor;
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1),
+    opacity 0.35s ease;
+  transform-origin: 50% 50%;
 }
 
-.nav-bar__menu span:first-child,
-.floating-menu span:first-child {
-  transform: translateY(-0.2rem);
+.nav-bar__menu span:nth-child(1),
+.floating-menu span:nth-child(1) {
+  transform: translateY(-0.45rem);
+  transition-delay: 0s;
 }
 
-.nav-bar__menu span:last-child,
-.floating-menu span:last-child {
-  transform: translateY(0.2rem);
+.nav-bar__menu span:nth-child(2),
+.floating-menu span:nth-child(2) {
+  transform: translateY(0);
+  transition-delay: 0.04s;
 }
 
-.nav-active .nav-bar__menu span:first-child,
-.nav-active .floating-menu span:first-child {
-  transform: rotate(45deg);
+.nav-bar__menu span:nth-child(3),
+.floating-menu span:nth-child(3) {
+  transform: translateY(0.45rem);
+  transition-delay: 0.08s;
 }
 
-.nav-active .nav-bar__menu span:last-child,
-.nav-active .floating-menu span:last-child {
-  transform: rotate(-45deg);
+.nav-active .nav-bar__menu span:nth-child(1),
+.nav-active .floating-menu span:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+  transition-delay: 0.05s;
+}
+
+.nav-active .nav-bar__menu span:nth-child(2),
+.nav-active .floating-menu span:nth-child(2) {
+  transform: scaleX(0);
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.nav-active .nav-bar__menu span:nth-child(3),
+.nav-active .floating-menu span:nth-child(3) {
+  transform: translateY(0) rotate(-45deg);
+  transition-delay: 0.05s;
 }
 
 .nav-bar__menu strong {

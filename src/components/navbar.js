@@ -39,6 +39,7 @@ export const renderNavbar = ({ namespace, heroClass = '' }) => `
   <button class="floating-menu" data-nav-toggle>
     <span></span>
     <span></span>
+    <span></span>
   </button>
 
   <div class="site-scroll" data-scroll-container>
@@ -54,6 +55,7 @@ export const renderNavbar = ({ namespace, heroClass = '' }) => `
         <a href="/#about" data-route-link>About</a>
         <a href="/#contact" data-route-link>Contact</a>
         <button class="nav-bar__menu" data-nav-toggle>
+          <span></span>
           <span></span>
           <span></span>
           <strong>Menu</strong>
