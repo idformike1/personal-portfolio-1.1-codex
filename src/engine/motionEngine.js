@@ -8,6 +8,10 @@ import { initSectionReveal } from '../animations/sectionReveal.js';
 import { initFooterReveal } from '../animations/footerReveal.js';
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.defaults({
+  duration: 0.6,
+  ease: 'power3.out'
+});
 
 export class MotionEngine {
   constructor(container) {
