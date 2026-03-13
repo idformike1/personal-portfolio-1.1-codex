@@ -1,5 +1,5 @@
 import './styles/variables.css';
-import './styles/base.css';
+import './styles/global.css';
 import './styles/components.css';
 import './styles/layout.css';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
@@ -7,8 +7,8 @@ import 'locomotive-scroll/dist/locomotive-scroll.css';
 import { buildHomePage } from './pages/homePage.js';
 import { buildWorkPage } from './pages/workPage.js';
 import { runLoaderAnimation } from './animations/loaderAnimation.js';
+import { TransitionEngine } from './engine/transitionEngine.js';
 import { mountSite } from './site.js';
-import { TimelineController } from './engine/timelineController.js';
 
 const app = document.querySelector('[data-app]');
 
@@ -66,7 +66,7 @@ mountCurrent(document.querySelector('[data-barba="container"]'));
 
 runLoaderAnimation({
   onComplete: () => {
-    new TimelineController({
+    new TransitionEngine({
       renderRoute,
       onMount: mountCurrent,
       getMounted: () => state.mounted

@@ -1,31 +1,8 @@
 import { projects } from '../data/projects.js';
+import { renderFeaturedWorkList } from '../components/workList.js';
 import { renderFooter, renderShell } from './shared.js';
 
-const featured = projects.slice(0, 4)
-  .map(
-    (project, index) => `
-      <li class="featured-work__item" data-project-card data-project-index="${index}" data-preview="${project.image}" data-accent="${project.accent}" data-services="${project.services}" data-year="${project.year}">
-        <a href="/work" data-route-link data-cursor="view project">
-          <div class="featured-work__row">
-            <div class="featured-work__title">
-              <h3>${project.title}</h3>
-              <span class="featured-work__highlight" aria-hidden="true"></span>
-            </div>
-            <div class="featured-work__client">
-              <p>${project.location}</p>
-            </div>
-            <div class="featured-work__service">
-              <p>${project.services}</p>
-            </div>
-            <div class="featured-work__year">
-              <p>${project.year}</p>
-            </div>
-          </div>
-        </a>
-      </li>
-    `
-  )
-  .join('');
+const featured = renderFeaturedWorkList(projects);
 
 export const buildHomePage = () => `
   ${renderShell({ namespace: 'home', heroClass: 'theme-dark' })}

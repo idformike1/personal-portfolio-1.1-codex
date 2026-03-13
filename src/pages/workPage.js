@@ -1,48 +1,9 @@
 import { projects } from '../data/projects.js';
+import { renderWorkRows, renderWorkTiles } from '../components/workList.js';
 import { renderFooter, renderShell } from './shared.js';
 
-const rows = projects
-  .map(
-    (project, index) => `
-      <li class="project-row ${project.categories.join(' ')} visible" data-project-row data-categories="${project.categories.join(' ')}" data-preview="${project.image}" data-accent="${project.accent}" data-project-index="${index}">
-        <a href="/" class="row" data-route-link data-cursor="view project">
-          <div class="flex-col">
-            <h4><span>${project.title}</span></h4>
-          </div>
-          <div class="flex-col">
-            <p>${project.location}</p>
-          </div>
-          <div class="flex-col">
-            <p>${project.services}</p>
-          </div>
-          <div class="flex-col">
-            <p>${project.year}</p>
-          </div>
-        </a>
-      </li>
-    `
-  )
-  .join('');
-
-const tiles = projects
-  .map(
-    (project, index) => `
-      <li class="work-tile ${project.categories.join(' ')} visible" data-project-card data-categories="${project.categories.join(' ')}" data-preview="${project.image}" data-accent="${project.accent}" data-project-index="${index}">
-        <a href="/" data-route-link data-cursor="view project">
-          <div class="work-tile__image" style="--project-accent:${project.accent}">
-            <img src="${project.image}" alt="${project.title}" loading="lazy" decoding="async" />
-          </div>
-          <div class="work-tile__meta">
-            <h4>${project.title}</h4>
-            <div class="stripe"></div>
-            <p>${project.services}</p>
-            <p>${project.year}</p>
-          </div>
-        </a>
-      </li>
-    `
-  )
-  .join('');
+const rows = renderWorkRows(projects);
+const tiles = renderWorkTiles(projects);
 
 export const buildWorkPage = () => `
   ${renderShell({ namespace: 'work' })}
