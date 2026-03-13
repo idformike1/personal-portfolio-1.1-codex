@@ -275,7 +275,9 @@
 
 .pill,
 .archive-pill,
-.view-toggle {
+.view-toggle,
+.btn-round,
+.footer__contact-button {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -283,41 +285,53 @@
   min-height: 4.25em;
   padding: 0 2.5em;
   border-radius: 2.125em;
-  box-shadow: none;
+  border: 1px solid #9EA1AC;
   overflow: hidden;
-  background: var(--color-blue);
-  color: var(--color-white);
+  background: transparent;
+  color: #1C1D20;
+  isolation: isolate;
 }
 
 .pill::before,
 .archive-pill::before,
-.view-toggle::before {
+.view-toggle::before,
+.btn-round::before,
+.footer__contact-button::before {
   content: '';
   position: absolute;
-  width: 150%;
-  height: 200%;
-  top: -50%;
-  left: -25%;
-  border-radius: 50%;
-  background: var(--color-muted);
-  transform: translate3d(0, -100%, 0);
-  transition: none;
+  inset: -10% -12%;
+  background: var(--color-blue);
+  transform: translate3d(0, 110%, 0) skewY(8deg);
+  transform-origin: 50% 100%;
+  transition: transform 0.42s ease-out;
+  z-index: -2;
 }
 
-.pill.is-active::before,
-.view-toggle.is-active::before {
-  transform: translate3d(0, -76%, 0);
+.pill::after,
+.archive-pill::after,
+.view-toggle::after,
+.btn-round::after,
+.footer__contact-button::after {
+  content: '';
+  position: absolute;
+  inset: -18% -22%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  transform: translate3d(0, 118%, 0) skewY(8deg);
+  transform-origin: 50% 100%;
+  transition: transform 0.36s ease-out;
+  z-index: -1;
 }
 
 .pill,
 .archive-pill,
-.view-toggle {
-  color: var(--color-white);
-}
-
-.pill.is-active,
-.view-toggle.is-active {
-  color: var(--color-ink);
+.view-toggle,
+.btn-round,
+.footer__contact-button {
+  transition: color 0.4s ease-out, border-color 0.4s ease-out;
 }
 
 .pill > *,
@@ -325,6 +339,45 @@
 .view-toggle > * {
   position: relative;
   z-index: 1;
+}
+
+.pill:hover,
+.pill:focus-visible,
+.archive-pill:hover,
+.archive-pill:focus-visible,
+.view-toggle:hover,
+.view-toggle:focus-visible,
+.btn-round:hover,
+.btn-round:focus-visible,
+.footer__contact-button:hover,
+.footer__contact-button:focus-visible {
+  color: #FFFFFF;
+}
+
+.pill:hover::before,
+.pill:focus-visible::before,
+.archive-pill:hover::before,
+.archive-pill:focus-visible::before,
+.view-toggle:hover::before,
+.view-toggle:focus-visible::before,
+.btn-round:hover::before,
+.btn-round:focus-visible::before,
+.footer__contact-button:hover::before,
+.footer__contact-button:focus-visible::before {
+  transform: translate3d(0, 0%, 0) skewY(8deg);
+}
+
+.pill:hover::after,
+.pill:focus-visible::after,
+.archive-pill:hover::after,
+.archive-pill:focus-visible::after,
+.view-toggle:hover::after,
+.view-toggle:focus-visible::after,
+.btn-round:hover::after,
+.btn-round:focus-visible::after,
+.footer__contact-button:hover::after,
+.footer__contact-button:focus-visible::after {
+  transform: translate3d(0, 0%, 0) skewY(8deg);
 }
 
 .view-toggle--rows {
@@ -362,14 +415,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--color-blue);
-  color: var(--color-white);
-}
-
-.btn-round,
-.archive-pill,
-.footer__contact-button {
-  transition: background-color 0.35s ease, color 0.35s ease;
+  padding-inline: 1.5rem;
 }
 
 .btn-round--small {
