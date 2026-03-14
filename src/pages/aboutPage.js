@@ -1,8 +1,8 @@
 import { renderFooter, renderShell } from './shared.js';
 
 export const buildAboutPage = () => `
-  ${renderShell({ namespace: 'about', heroClass: 'theme-dark' })}
-    <section class="default-header about-header theme-dark" data-scroll-section>
+  ${renderShell({ namespace: 'about' })}
+    <section class="default-header about-header" data-scroll-section>
       <div class="container medium">
         <div class="row">
           <div class="flex-col">
@@ -67,4 +67,3 @@ export const buildAboutPage = () => `
     </section>
   ${renderFooter()}
 `;
-

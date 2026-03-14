@@ -212,7 +212,7 @@
 .floating-menu {
   width: clamp(4em, 5.5vw, 5em);
   height: clamp(4em, 5.5vw, 5em);
-  display: none;
+  display: grid;
   place-items: center;
   border-radius: 50%;
   background: var(--color-dark-alt);
