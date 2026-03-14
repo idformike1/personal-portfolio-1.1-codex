@@ -43,7 +43,7 @@ export const buildHomePage = () => `
       </div>
     </section>
 
-    <section class="home-intro section" id="about" data-scroll-section>
+    <section class="home-intro section" data-scroll-section>
       <div class="container">
         <div class="row">
           <div class="flex-col">
@@ -53,7 +53,7 @@ export const buildHomePage = () => `
             <p>
               Helping brands thrive in the digital world. Located in The Netherlands. Delivering tailor-made digital designs and building interactive websites from scratch.
             </p>
-            <a href="/#about" class="btn-round btn-round--small" data-route-link data-cursor="explore">About me</a>
+            <a href="/about" class="btn-round btn-round--small" data-route-link data-cursor="explore">About me</a>
           </div>
         </div>
       </div>

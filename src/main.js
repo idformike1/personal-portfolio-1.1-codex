@@ -6,6 +6,7 @@ import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 import { buildHomePage } from './pages/homePage.js';
 import { buildWorkPage } from './pages/workPage.js';
+import { buildAboutPage } from './pages/aboutPage.js';
 import { runLoaderAnimation } from './animations/loaderAnimation.js';
 import { TransitionEngine } from './engine/transitionEngine.js';
 import { mountSite } from './site.js';
@@ -17,6 +18,13 @@ const getRouteConfig = (pathname = window.location.pathname) => {
     return {
       namespace: 'work',
       body: buildWorkPage()
+    };
+  }
+
+  if (pathname === '/about') {
+    return {
+      namespace: 'about',
+      body: buildAboutPage()
     };
   }
 

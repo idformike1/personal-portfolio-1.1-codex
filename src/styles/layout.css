@@ -7,6 +7,40 @@
   padding-bottom: calc(var(--section-padding) * 0.66);
 }
 
+.about-header__copy {
+  margin-top: 2.5rem;
+  max-width: 42rem;
+}
+
+.about-services__head {
+  margin-bottom: 2.75rem;
+}
+
+.about-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.about-card {
+  border: 1px solid var(--color-border);
+  padding: 1.75rem 1.75rem 2rem;
+  background: var(--color-white);
+}
+
+.about-card h4 {
+  margin-bottom: 0.75rem;
+}
+
+.about-awwwards {
+  background: var(--color-dark-alt);
+}
+
+.about-awwwards__copy {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+}
+
 .home-header {
   position: relative;
   min-height: 115vh;
@@ -527,6 +561,10 @@
 
   .footer__contact-button {
     width: 100%;
+  }
+
+  .about-services__grid {
+    grid-template-columns: 1fr;
   }
 
   .home-gallery__grid {

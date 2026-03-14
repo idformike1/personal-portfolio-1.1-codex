@@ -17,7 +17,8 @@ export const initFooterReveal = (container, scrollController) => {
     ...footer.querySelectorAll('.footer__headline-row, .footer__cta-row, .footer__links-row, .footer__bottom > *')
   ];
 
-  gsap.set(targets, { autoAlpha: 1 });
+  // Never leave the footer invisible if ScrollTrigger measurement is delayed.
+  gsap.set(targets, { autoAlpha: 1, y: 0 });
 
   const tween = gsap.from(targets, {
     y: 44,
@@ -25,9 +26,11 @@ export const initFooterReveal = (container, scrollController) => {
     duration: 0.95,
     stagger: 0.08,
     ease: 'expo.out',
+    immediateRender: false,
     scrollTrigger: {
       trigger: footerWrap,
       start: 'top bottom-=10%',
+      invalidateOnRefresh: true,
       scroller: scrollController.scrollerElement
     }
   });
