@@ -6,32 +6,15 @@ export const initHamburger = (container, scroll) => {
   const floating = container.querySelector('.floating-menu');
   const navLinks = container.querySelectorAll('.fixed-nav a[data-route-link], .nav-bar a[data-route-link]');
   const destroyers = [];
-  let visible = false;
-
-  const showFloating = (nextVisible) => {
-    if (!floating || nextVisible === visible) return;
-    visible = nextVisible;
-    gsap.to(floating, {
-      autoAlpha: visible ? 1 : 0,
-      scale: visible ? 1 : 0.72,
-      duration: 0.35,
-      ease: 'power3.out',
-      overwrite: 'auto'
-    });
-  };
 
   const toggle = () => {
     container.classList.toggle('nav-active');
     if (container.classList.contains('nav-active')) scroll.stop();
     else scroll.start();
-    if (container.classList.contains('nav-active')) showFloating(true);
   };
 
-  floating && gsap.set(floating, { autoAlpha: 0, scale: 0.72 });
-
-  const offScroll = scroll.onScroll?.(({ y }) => {
-    showFloating(y >= 100);
-  });
+  // Ensure route swaps don't leave stale inline styles that can permanently hide the button.
+  if (floating) gsap.set(floating, { clearProps: 'opacity,visibility,transform' });
 
   toggles.forEach((toggleButton) => {
     toggleButton.addEventListener('click', toggle);
@@ -46,7 +29,6 @@ export const initHamburger = (container, scroll) => {
       if (!container.classList.contains('nav-active')) return;
       container.classList.remove('nav-active');
       scroll.start();
-      showFloating(true);
     };
     link.addEventListener('click', onNav);
     destroyers.push(() => link.removeEventListener('click', onNav));
@@ -54,7 +36,6 @@ export const initHamburger = (container, scroll) => {
 
   return {
     destroy() {
-      offScroll?.();
       destroyers.forEach((destroy) => destroy());
     }
   };
