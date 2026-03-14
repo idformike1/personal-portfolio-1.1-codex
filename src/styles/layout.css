@@ -328,6 +328,34 @@
   padding-bottom: calc(var(--section-padding) * 0.35);
 }
 
+.home-gallery.section {
+  padding-top: calc(var(--section-padding) * 0.55);
+  padding-bottom: calc(var(--section-padding) * 0.55);
+}
+
+.home-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.25rem 2.25rem;
+  align-items: start;
+}
+
+.home-gallery__tile {
+  display: block;
+}
+
+.home-gallery__frame {
+  background: var(--color-surface-alt);
+  padding: clamp(1.25rem, 2.25vw, 2rem);
+}
+
+.home-gallery__frame img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
 .footer-rounded-div {
   position: relative;
   width: 100%;
@@ -499,6 +527,10 @@
 
   .footer__contact-button {
     width: 100%;
+  }
+
+  .home-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export const initFooterReveal = (container, scrollController) => {
   const footerWrap = container.querySelector('.footer-wrap');
   const footer = container.querySelector('.footer');
+  const rounded = container.querySelector('.footer-rounded-div .rounded-div');
   const buttonWrap = footer?.querySelector('.btn-fixed');
   const button = footer?.querySelector('.btn-round');
   const gradient = container.querySelector('.overlay-gradient');
@@ -30,6 +31,24 @@ export const initFooterReveal = (container, scrollController) => {
       scroller: scrollController.scrollerElement
     }
   });
+
+  const curveTween = rounded
+    ? gsap.fromTo(
+        rounded,
+        { y: 180 },
+        {
+          y: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: footerWrap,
+            start: 'top bottom',
+            end: 'top 65%',
+            scrub: true,
+            scroller: scrollController.scrollerElement
+          }
+        }
+      )
+    : null;
 
   const gradientTween = gradient
     ? gsap.to(gradient, {
@@ -92,6 +111,8 @@ export const initFooterReveal = (container, scrollController) => {
       button?.removeEventListener('pointermove', onFooterMove);
       button?.removeEventListener('pointerleave', onFooterLeave);
       gradientTween?.kill();
+      curveTween?.scrollTrigger?.kill();
+      curveTween?.kill();
       tween.scrollTrigger?.kill();
       tween.kill();
     }

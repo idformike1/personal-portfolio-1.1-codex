@@ -3,6 +3,18 @@ import { renderFeaturedWorkList } from '../components/workList.js';
 import { renderFooter, renderShell } from './shared.js';
 
 const featured = renderFeaturedWorkList(projects);
+const gallery = projects
+  .slice(0, 8)
+  .map(
+    (project) => `
+      <a class="home-gallery__tile" href="/work" data-route-link aria-label="${project.title}">
+        <div class="home-gallery__frame">
+          <img src="${project.image}" alt="${project.title}" loading="lazy" decoding="async" />
+        </div>
+      </a>
+    `
+  )
+  .join('');
 
 export const buildHomePage = () => `
   ${renderShell({ namespace: 'home', heroClass: 'theme-dark' })}
@@ -62,6 +74,14 @@ export const buildHomePage = () => `
     <section class="archive-cta section" data-scroll-section>
       <div class="container">
         <a href="/work" class="archive-pill" data-route-link>More work <sup>11</sup></a>
+      </div>
+    </section>
+
+    <section class="home-gallery section" data-scroll-section>
+      <div class="container">
+        <div class="home-gallery__grid" aria-label="Selected work">
+          ${gallery}
+        </div>
       </div>
     </section>
   ${renderFooter()}
